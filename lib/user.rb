@@ -1,3 +1,5 @@
+require_relative 'recipient'
+
 class User < Recipient
 
   attr_accessor :real_name, :status_text, :status_emoji
@@ -13,5 +15,6 @@ class User < Recipient
   end
 
   def self.list
+    return nil
   end
 end

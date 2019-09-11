@@ -1,10 +1,14 @@
-def Workspace
+require 'dotenv'
+require 'httparty'
+Dotenv.load
 
-  attr_accessor :users, :channel, :selected
+class Workspace
+
+  attr_accessor :users, :channels, :selected
 
   def initialize
-    @users = []
-    @channel = nil
+    @users = User.list
+    @channels = Channel.list
     @selected = nil
   end
 

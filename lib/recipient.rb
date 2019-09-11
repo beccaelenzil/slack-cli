@@ -1,5 +1,4 @@
 class Recipient
-
   attr_accessor :slack_id, :name
 
   def initialize(slack_id, name)
@@ -15,10 +14,12 @@ class Recipient
 
   def details
     # abstract, implemented in channel and user
+    raise NotImplementedError
   end
 
   def self.list
     # abstract, implemented in channel and user
+    raise NotImplementedError
   end
 
 end
