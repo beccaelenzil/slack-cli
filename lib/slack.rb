@@ -11,7 +11,24 @@ def main
   puts "Welcome to the Ada Slack CLI!"
 
   workspace = Workspace.new
-  ap workspace.channels
+  running = true
+  
+  while running
+    puts "What would you like to do: 'list channels', 'list users', or 'quit':"
+    command = gets.chomp
+
+    case command 
+      when 'list channels'
+        ap workspace.channels
+      when 'list users'
+        ap workspace.users
+      when 'quit'
+        running = false
+      else
+        puts "Enter a valid command"
+    end
+  end
+  
 
   # TODO project
 
