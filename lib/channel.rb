@@ -18,6 +18,7 @@ class Channel < Recipient
   end
 
   def details
+    return "Channel #{@name}'s topic is #{@topic["value"]}. It has #{@member_count} members."
   end
 
   def self.list

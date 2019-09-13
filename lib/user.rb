@@ -15,6 +15,7 @@ class User < Recipient
   end
 
   def details
+    return "User #{@name}'s status is #{@status_text} #{@status_emoji}. Their real name is #{@real_name}."
   end
 
   def self.list
