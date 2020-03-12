@@ -22,9 +22,9 @@ def main
 
     case command 
       when 'list channels'
-        ap workspace.channels
+        ap workspace.list_channels
       when 'list users'
-        ap workspace.users
+        ap workspace.list_users
       when 'select user'
         recipient = Workspace.select(workspace.users)
       when 'select channel'

@@ -4,9 +4,6 @@ class User < Recipient
 
   attr_accessor :real_name, :status_text, :status_emoji
 
-  #URL = 'https://slack.com/api/users.list'
-  #KEY = ENV['SLACK_CLI_TOKEN']
-
   def initialize(slack_id, name, real_name, status_text, status_emoji)
     super(slack_id, name)
     @real_name = real_name

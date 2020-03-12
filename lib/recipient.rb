@@ -1,4 +1,5 @@
 require 'dotenv'
+require 'httparty'
 Dotenv.load
 
 class Recipient
@@ -30,6 +31,10 @@ class Recipient
   def self.list
     # abstract, implemented in channel and user
     raise NotImplementedError
+  end
+
+  def details
+    raise NotImplementedError, "Can't implement from recipient class."
   end
 
 end

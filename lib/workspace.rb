@@ -1,5 +1,6 @@
 require 'dotenv'
 require 'httparty'
+require 'table_print'
 Dotenv.load
 
 class Workspace
@@ -13,6 +14,14 @@ class Workspace
     @users = User.list
     @channels = Channel.list
     @selected = nil
+  end
+
+  def list_users
+    tp @users, :real_name, :slack_id, :user_name => {:display_method => :name}
+  end
+
+  def list_channels
+    tp @channels, :name, :member_count, :slack_id
   end
 
   def self.select(recipient_array)
