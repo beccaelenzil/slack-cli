@@ -28,4 +28,5 @@ class User < Recipient
     end
     return users
   end
+  
 end
