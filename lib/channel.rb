@@ -8,7 +8,6 @@ class Channel < Recipient
 
   attr_accessor :topic, :member_count
 
-  #URL = 'https://slack.com/api/channels.list'
   KEY = ENV['SLACK_CLI_TOKEN']
 
   def initialize(slack_id, name, topic, member_count)
@@ -22,7 +21,7 @@ class Channel < Recipient
   end
 
   def self.list
-    response = self.get("channels.list")
+    response = self.get('conversations.list')
 
     channels = response["channels"].map do |channel|
       self.new(

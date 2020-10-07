@@ -1,12 +1,10 @@
 require 'dotenv'
 require 'httparty'
 require 'table_print'
+
 Dotenv.load
 
 class Workspace
-
-  URL = 'https://slack.com/api/chat.postMessage'
-  KEY = ENV['SLACK_CLI_TOKEN']
 
   attr_accessor :users, :channels, :selected
 
@@ -25,27 +23,24 @@ class Workspace
   end
 
   def select_channel(input)
-    the_recipient = @channels.find do |recipient|
-      recipient.name == name || recipient.slack_id == input
+    @selected = @channels.find do |recipient|
+      recipient.name == input || recipient.slack_id == input
     end
 
-    return the_recipient
   end
 
   def select_user(input)
-    the_recipient = @users.find do |recipient|
-      recipient.name == name || recipient.slack_id == input
+    @selected = @users.find do |recipient|
+      recipient.name == input|| recipient.slack_id == input
     end
-
-    return the_recipient
   end
 
-  def show_details(recipient)
-    return recipient.details
+  def show_details
+    return @selected.details
   end
 
-  def send_message(recipient, message)
-    recipient.send_message(message)
+  def send_message(message)
+    @selected.send_message(message)
   end
 
 end

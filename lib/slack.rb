@@ -6,11 +6,11 @@ require_relative "../lib/recipient"
 require_relative "../lib/user"
 
 require 'awesome_print'
+Dotenv.load
 
 def main
   puts "Welcome to the Ada Slack CLI!"
 
-  recipient = nil
   workspace = Workspace.new
   running = true
 
@@ -28,24 +28,24 @@ def main
       when 'select user'
         puts "Input the name or slack id of the user: "
         input = gets.chomp
-        recipient = workspace.select_user(input)
-        puts "Unable to find that user" if recipient.nil?
+        workspace.select_user(input)
+        puts "Unable to find that user" if workspace.selected.nil?
       when 'select channel'
         puts "Input the name or slack id of the channel: "
         input = gets.chomp
-        recipient = workspace.select_channel(input)
-        puts "Unable to find that channel" if recipient.nil?
+        workspace.select_channel(input)
+        puts "Unable to find that channel" if workspace.selected.nil?
       when 'details'
-        if recipient
-          puts workspace.details(recipient)
+        if workspace.selected
+          puts workspace.show_details()
         else
           puts "You must first select a user or channel."
         end
       when 'send message'
-        if recipient
+        if workspace.selected
           puts "What do you want to say?"
           message = gets.chomp
-          workspace.send_message(recipient, message)
+          workspace.send_message(message)
         else
           puts "You must first select a user or channel."
         end

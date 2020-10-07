@@ -6,15 +6,15 @@ class Recipient
   attr_accessor :slack_id, :name
 
   URL = 'https://slack.com/api/'
+  POST_URL = 'https://slack.com/api/chat.postMessage'
   KEY = ENV['SLACK_CLI_TOKEN']
+  BOT_KEY = ENV['BOT_TOKEN']
 
   def initialize(slack_id, name)
     @slack_id = slack_id
     @name = name
   end
 
-  def send_message(message)
-  end
 
   def details
     # abstract, implemented in channel and user
@@ -22,17 +22,17 @@ class Recipient
   end
 
   def send_message(message)
-    response = HTTParty.post(URL, body: {
-        token: KEY,
+    response = HTTParty.post(POST_URL, body: {
+        token: BOT_KEY,
         channel: self.slack_id,
         text: message
     })
+
+    return response
   end
 
   def self.get(url)
-    the_url = URL + url
-    response = HTTParty.get(the_url, query: {token: KEY})
-
+    response = HTTParty.get(URL+url, query: {token: KEY})
     return response
   end
 

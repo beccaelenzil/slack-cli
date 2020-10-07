@@ -17,6 +17,7 @@ class User < Recipient
 
   def self.list
     response = self.get('users.list')
+
     users = response["members"].map do |user|
       self.new(
         user["id"], 
