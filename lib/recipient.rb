@@ -21,6 +21,14 @@ class Recipient
     raise NotImplementedError
   end
 
+  def send_message(message)
+    response = HTTParty.post(URL, body: {
+        token: KEY,
+        channel: self.slack_id,
+        text: message
+    })
+  end
+
   def self.get(url)
     the_url = URL + url
     response = HTTParty.get(the_url, query: {token: KEY})

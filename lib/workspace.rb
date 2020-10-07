@@ -24,28 +24,28 @@ class Workspace
     tp @channels, :name, :member_count, :slack_id
   end
 
-  def self.select(recipient_array)
-    type = recipient_array.first.class.to_s.downcase
-  
-    puts "Input the name or slack id of the #{type}: "
-    input = gets.chomp
-    the_recipient = recipient_array.find do |recipient|
-      recipient.name == input || recipient.slack_id == input
+  def select_channel(input)
+    the_recipient = @channels.find do |recipient|
+      recipient.name == name || recipient.slack_id == input
     end
-  
-    if the_recipient == nil
-      puts "We couldn't find that #{type}"
-    end
-  
+
     return the_recipient
   end
 
+  def select_user(input)
+    the_recipient = @users.find do |recipient|
+      recipient.name == name || recipient.slack_id == input
+    end
+
+    return the_recipient
+  end
+
+  def show_details(recipient)
+    return recipient.details
+  end
+
   def send_message(recipient, message)
-    response = HTTParty.post(URL, body: {
-      token: KEY,
-      channel: recipient,
-      text: message
-    })
+    recipient.send_message(message)
   end
 
 end

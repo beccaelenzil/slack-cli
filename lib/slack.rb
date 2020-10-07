@@ -26,12 +26,18 @@ def main
       when 'list users'
         ap workspace.list_users
       when 'select user'
-        recipient = Workspace.select(workspace.users)
+        puts "Input the name or slack id of the user: "
+        input = gets.chomp
+        recipient = workspace.select_user(input)
+        puts "Unable to find that user" if recipient.nil?
       when 'select channel'
-        recipient = Workspace.select(workspace.channels)
+        puts "Input the name or slack id of the channel: "
+        input = gets.chomp
+        recipient = workspace.select_channel(input)
+        puts "Unable to find that channel" if recipient.nil?
       when 'details'
         if recipient
-          puts recipient.details
+          puts workspace.details(recipient)
         else
           puts "You must first select a user or channel."
         end
@@ -39,7 +45,7 @@ def main
         if recipient
           puts "What do you want to say?"
           message = gets.chomp
-          workspace.send_message(recipient.slack_id, message)
+          workspace.send_message(recipient, message)
         else
           puts "You must first select a user or channel."
         end
